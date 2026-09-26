@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cloudtask-config
+  namespace: cloudtask
+data:
+  NODE_ENV: "production"
+  PORT: "8080"
+  BACKEND_HOST: "cloudtask-backend"
+  API_URL: "/api"

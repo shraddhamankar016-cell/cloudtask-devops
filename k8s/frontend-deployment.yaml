@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudtask-frontend
+  namespace: cloudtask
+  labels:
+    app: cloudtask-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cloudtask-frontend
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: cloudtask-frontend
+    spec:
+      containers:
+        - name: frontend
+          # Replace with your ECR image URI, e.g.:
+          # <account-id>.dkr.ecr.<region>.amazonaws.com/cloudtask-frontend:latest
+          image: YOUR_ECR_REPO/cloudtask-frontend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: cloudtask-config
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "200m"
+              memory: "128Mi"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 15

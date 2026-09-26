@@ -1,0 +1,9 @@
+# Copy this file to terraform.tfvars and fill in real values.
+# terraform.tfvars is git-ignored so secrets never get committed.
+
+aws_region   = "ap-south-1"
+environment  = "dev"
+project_name = "cloudtask"
+
+db_username = "cloudtask_admin"
+db_password = "REPLACE_ME_WITH_A_STRONG_PASSWORD"

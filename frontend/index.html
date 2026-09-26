@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CloudTask | DevOps Task Manager</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-icon">☁️</span>
+        <span class="brand-name">CloudTask</span>
+      </div>
+      <div class="status-pill" id="apiStatus">
+        <span class="dot"></span>
+        <span id="apiStatusText">Checking API…</span>
+      </div>
+    </header>
+
+    <main class="content">
+      <section class="hero">
+        <h1>Task Manager</h1>
+        <p>A full-stack app deployed with Docker, Kubernetes, Terraform &amp; CI/CD on AWS.</p>
+      </section>
+
+      <section class="add-task-card">
+        <form id="taskForm">
+          <input type="text" id="taskTitle" placeholder="Task title" required />
+          <input type="text" id="taskDescription" placeholder="Description (optional)" />
+          <select id="taskStatus">
+            <option value="todo">To Do</option>
+            <option value="in-progress">In Progress</option>
+            <option value="done">Done</option>
+          </select>
+          <button type="submit">+ Add Task</button>
+        </form>
+      </section>
+
+      <section class="board" id="board">
+        <div class="column" data-status="todo">
+          <h2>To Do</h2>
+          <div class="cards" id="col-todo"></div>
+        </div>
+        <div class="column" data-status="in-progress">
+          <h2>In Progress</h2>
+          <div class="cards" id="col-in-progress"></div>
+        </div>
+        <div class="column" data-status="done">
+          <h2>Done</h2>
+          <div class="cards" id="col-done"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>CloudTask &middot; Built &amp; deployed with Linux, Docker, Kubernetes, Terraform, Jenkins &amp; GitHub Actions on AWS</p>
+    </footer>
+  </div>
+
+  <!-- config.js is generated at container start-up (see docker-entrypoint.sh)
+       so the same image can point at any backend URL without a rebuild -->
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
